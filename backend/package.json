@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "initialise": "node initialise.js",
+    "seed": "node seed.js"
+  },
+  "keywords": [],
+  "author": "Nick Taras",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^9.3.0",
+    "faker": "^5.5.3",
+    "fastify": "^4.25.2"
+  }
+}
