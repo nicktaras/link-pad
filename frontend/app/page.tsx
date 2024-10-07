@@ -60,8 +60,8 @@ export default function Home() {
         { icon: dotIcon, text: "Account manager" },
       ],
       fee: {
-        monthly: "$50 per month per user",
-        yearly: "$500 per year per user",
+        monthly: "$25 per month per user",
+        yearly: "$200 per year per user",
       }
     },
   ];
