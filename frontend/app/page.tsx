@@ -1,9 +1,16 @@
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { PaperPlaneIcon } from '@radix-ui/react-icons'
-import { dotIcon, groupIcon, heartIcon, heartOutlineIcon, lightningOutlineIcon } from "@/components/ui/icons"
+"use client";
+
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { PaperPlaneIcon } from "@radix-ui/react-icons";
+import { dotIcon, groupIcon, heartIcon, heartOutlineIcon, lightningOutlineIcon } from "@/components/ui/icons";
+import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge"
 
 export default function Home() {
+  const [isYearly, setIsYearly] = useState(true);
+
   const tiers = [
     {
       name: "The Essentials",
@@ -13,10 +20,14 @@ export default function Home() {
         { icon: heartIcon, text: "Store & manage your links" },
         { icon: dotIcon, text: "Tag, categorize, annotate" },
         { icon: dotIcon, text: "AI-assisted link suggestions" },
-        { icon: dotIcon, text: "Media content viewer" },
+        { icon: dotIcon, text: "Basic content viewer" },
         { icon: dotIcon, text: "500 links & 150 categories" },
+        { icon: dotIcon, text: "Full ownership of created data" },
       ],
-      fee: "$5 per month / $50 per year",
+      fee: {
+        monthly: "$5 per month",
+        yearly: "$25 single fee",
+      }
     },
     {
       name: "Pro",
@@ -30,7 +41,10 @@ export default function Home() {
         { icon: dotIcon, text: "Advanced content viewer" },
         { icon: dotIcon, text: "Priority support" },
       ],
-      fee: "$15 per month / $150 per year",
+      fee: {
+        monthly: "$15 per month",
+        yearly: "$150 per year",
+      }
     },
     {
       name: "Team",
@@ -45,14 +59,21 @@ export default function Home() {
         { icon: dotIcon, text: "Priority support" },
         { icon: dotIcon, text: "Account manager" },
       ],
-      fee: "$50 per month per user / $500 per year per user",
+      fee: {
+        monthly: "$50 per month per user",
+        yearly: "$500 per year per user",
+      }
     },
   ];
+
+  const handleSwitchChange = (checked:boolean) => {
+    setIsYearly(checked);
+  };
 
   return (
     <main
       style={{ background: "#F4F4F6", color: "#485D6F" }}
-      className="flex min-h-screen flex-col items-center justify-between p-24"
+      className="flex min-h-screen flex-col items-center justify-between p-8 pt-24 md:p-24"
     >
       <div className="text-center mb-20">
         <h1 style={{ fontWeight: 300 }} className="text-4xl text-logo-gray font-afacad">
@@ -63,9 +84,34 @@ export default function Home() {
         </h2>
       </div>
       <div className="flex flex-wrap w-full items-stretch justify-center max-w-[1200px] border-b-2 border-t-2 border-[#E4E4E7]">
+
+        <div className="w-full flex justify-center mt-16 mb-12 relative left-[26px]">
+          <div className="flex items-center space-x-4">
+            <span
+              className={`text-sm text-[#485D6F] transition-opacity ${
+                isYearly ? "opacity-50" : "opacity-100"
+              }`}
+            >
+              Monthly
+            </span>
+            <Switch
+              checked={isYearly}
+              onCheckedChange={handleSwitchChange}
+              disabled={false}
+              aria-readonly={false}
+            />
+            <span
+              className={`text-sm text-[#485D6F] transition-opacity ${
+                isYearly ? "opacity-100" : "opacity-50"
+              }`}
+            >
+              Yearly <Badge variant="outline" className="bg-[#00C7A6] text-white">30% OFF</Badge></span>
+          </div>
+        </div>
+
         {tiers.map(({ name, theme, features, fee, icon }, tierIndex) => (
           <div
-            className="platform-tier w-1/4 my-20 mx-8 w-[330px] flex flex-col justify-between rounded-lg shadow-lg p-6"
+            className="relative platform-tier w-1/4 mb-20 w-full flex flex-col justify-between rounded-lg shadow-lg p-6 max-w-[400px] md:w-[330px] md:mx-8"
             key={tierIndex}
           >
             <div className="flex flex-col flex-grow">
@@ -98,11 +144,11 @@ export default function Home() {
             </div>
             <div
               style={{ color: theme }}
-              className="flex justify-center my-4 font-karla"
+              className="flex justify-center align-center my-4 font-karla text-center"
             >
-              {fee}
+              {fee[isYearly ? "yearly" : "monthly"]}
             </div>
-            <Button disabled className="w-full text-white font-bold uppercase p-3 my-8">Coming Soon</Button>
+            <Button className="w-full text-white font-bold uppercase p-3 my-8">Coming Soon</Button>
           </div>
         ))}
       </div>
@@ -110,7 +156,7 @@ export default function Home() {
         <div className="uppercase my-4 text-center text-[#555] font-afacad">
           Join our product launch waitlist
         </div>
-        <div className="relative text-white w-96">
+        <div className="relative text-white w-100 md:w-96">
           <Input
             className="focus-visible:ring-[#728396] bg-pink-500 font-bold uppercase w-full p-3 pr-10 text-white placeholder-white font-karla"
             placeholder=""
