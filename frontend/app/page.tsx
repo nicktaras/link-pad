@@ -13,20 +13,20 @@ export default function Home() {
 
   const tiers = [
     {
-      name: "The Essentials",
+      name: "Essential",
       theme: "#AF83E3", // purple
       icon: heartOutlineIcon,
       features: [
         { icon: heartIcon, text: "Store & manage your links" },
         { icon: dotIcon, text: "Tag, categorize, annotate" },
         { icon: dotIcon, text: "AI-assisted link suggestions" },
-        { icon: dotIcon, text: "Basic content viewer" },
-        { icon: dotIcon, text: "500 links & 150 categories" },
-        { icon: dotIcon, text: "Full ownership of created data" },
+        { icon: dotIcon, text: "Media viewer" },
+        { icon: dotIcon, text: "500 links & 50 categories" },
+        { icon: dotIcon, text: "No selling or sharing of data" },
       ],
       fee: {
-        monthly: "$5 per month",
-        yearly: "$25 single fee",
+        monthly: "FREE",
+        yearly: "FREE",
       }
     },
     {
@@ -35,10 +35,9 @@ export default function Home() {
       icon: lightningOutlineIcon,
       features: [
         { icon: heartIcon, text: "Everything in Starter" },
-        { icon: dotIcon, text: "Unlimited links & categories" },
-        { icon: dotIcon, text: "Collaborate with others" },
-        { icon: dotIcon, text: "Save web page content" },
-        { icon: dotIcon, text: "Advanced content viewer" },
+        { icon: dotIcon, text: "AI content features" },
+        { icon: dotIcon, text: "Advanced Media viewer" },
+        { icon: dotIcon, text: "Chrome Extension" },
         { icon: dotIcon, text: "Priority support" },
       ],
       fee: {
@@ -52,11 +51,10 @@ export default function Home() {
       icon: groupIcon,
       features: [
         { icon: heartIcon, text: "Everything in Pro" },
-        { icon: dotIcon, text: "Real-time team collaboration" },
+        { icon: dotIcon, text: "Real-time collaboration" },
         { icon: dotIcon, text: "User management" },
-        { icon: dotIcon, text: "Analytics and insights" },
+        { icon: dotIcon, text: "Analytics" },
         { icon: dotIcon, text: "Custom branding options" },
-        { icon: dotIcon, text: "Priority support" },
         { icon: dotIcon, text: "Account manager" },
       ],
       fee: {
@@ -148,7 +146,7 @@ export default function Home() {
             >
               {fee[isYearly ? "yearly" : "monthly"]}
             </div>
-            <Button className="w-full text-white font-bold uppercase p-3 my-8">Coming Soon</Button>
+            <Button className="bg-[#485d70] w-full text-white font-bold uppercase p-3 my-8 transition hover:bg-[#3a4c5b]">Get Started</Button>
           </div>
         ))}
       </div>
