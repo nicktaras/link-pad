@@ -18,10 +18,10 @@ export default function Home() {
       icon: heartOutlineIcon,
       features: [
         { icon: heartIcon, text: "Store & manage your links" },
-        { icon: dotIcon, text: "Tag, categorize, annotate" },
+        { icon: dotIcon, text: "Tag and annotate" },
         { icon: dotIcon, text: "AI-assisted link suggestions" },
         { icon: dotIcon, text: "Media viewer" },
-        { icon: dotIcon, text: "500 links & 50 categories" },
+        { icon: dotIcon, text: "Import links from browser" },
         { icon: dotIcon, text: "No selling or sharing of data" },
       ],
       fee: {
@@ -39,6 +39,7 @@ export default function Home() {
         { icon: dotIcon, text: "Advanced Media viewer" },
         { icon: dotIcon, text: "Chrome Extension" },
         { icon: dotIcon, text: "Priority support" },
+        { icon: dotIcon, text: "Downgrade anytime" },
       ],
       fee: {
         monthly: "$15 per month",
@@ -54,6 +55,7 @@ export default function Home() {
         { icon: dotIcon, text: "Real-time collaboration" },
         { icon: dotIcon, text: "User management" },
         { icon: dotIcon, text: "Analytics" },
+        { icon: dotIcon, text: "SAML SSO" },
         { icon: dotIcon, text: "Custom branding options" },
         { icon: dotIcon, text: "Account manager" },
       ],
@@ -75,10 +77,10 @@ export default function Home() {
     >
       <div className="text-center mb-20">
         <h1 style={{ fontWeight: 300 }} className="text-4xl text-logo-gray font-afacad">
-          Cloud Links
+          Cloud Found
         </h1>
         <h2 className="text-body-blue text-xl mt-2 font-[300]">
-          Collect and manage your links, anywhere.
+          Collect and organise your links.
         </h2>
       </div>
       <div className="flex flex-wrap w-full items-stretch justify-center max-w-[1200px] border-b-2 border-t-2 border-[#E4E4E7]">
