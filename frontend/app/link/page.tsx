@@ -1,113 +1,145 @@
-import Image from "next/image";
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Menu } from "@/components/menu/menu";
+import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
+  const [title, setTitle] = useState("");
+  const [subTitle, setSubtitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  const titleRef = useRef<HTMLTextAreaElement>(null);
+  const subtitleRef = useRef<HTMLTextAreaElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+
+  const autoResize = (ref: React.RefObject<HTMLTextAreaElement>) => {
+    const textarea = ref.current;
+    if (!textarea) return;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  const updateTitle = (textEntry: string) => {
+    setTitle(textEntry);
+    autoResize(titleRef);
+  };
+  const updateSubtitle = (textEntry: string) => {
+    setSubtitle(textEntry);
+    autoResize(subtitleRef);
+  };
+  const updateDescription = (textEntry: string) => {
+    setDescription(textEntry);
+    autoResize(descriptionRef);
+  };
+
+  useEffect(() => {
+    autoResize(titleRef);
+    autoResize(subtitleRef);
+    autoResize(descriptionRef);
+
+    const handleResize = () => {
+      autoResize(titleRef);
+      autoResize(subtitleRef);
+      autoResize(descriptionRef);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+    <main className="min-h-screen flex">
+      <Menu />
+      <div className="m-16 font-Karla w-full">
+        <div>
+          <div className="flex justify-between items-center mb-4 mt-2">
+            <div className="mr-4 relative flex justify-center items-center top-[-2px] w-10 h-10 min-w-10 min-h-10 p-0 bg-white border-[1px] border-radius-[30px] border-solid border-[#2F465C] rounded-full">
+              <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/97_Docker_logo_logos-512.png" className="rounded-full p-1" />
+            </div>
+            <textarea
+              rows={1}
+              ref={titleRef}
+              placeholder="Title"
+              style={{ resize: "none" }}
+              className="text-5xl text-[#2F465C] font-semibold p-0 block pr-2 w-full focus:outline-none"
+              value={title}
+              onChange={(event) => {
+                updateTitle(event.target.value);
+              }}
             />
-          </a>
+            <Button className="w-11 h-11 p-0 bg-white border-[1px] border-solid border-[#9ca3af] hover:bg-white rounded-full min-w-[44px] min-h-[44px]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="text-[#9ca3af]"
+              >
+                <circle cx="12" cy="5" r="1.5" />
+                <circle cx="12" cy="12" r="1.5" />
+                <circle cx="12" cy="19" r="1.5" />
+              </svg>
+            </Button>
+          </div>
+          <textarea
+            rows={1}
+            ref={subtitleRef}
+            placeholder="Subtitle"
+            style={{ resize: "none" }}
+            className="text-xl font-medium text-[#2F465C] pb-4 pr-2 block pr-2 w-full overflow-hidden focus:outline-none"
+            value={subTitle}
+            onChange={(event) => {
+              updateSubtitle(event.target.value);
+            }}
+          />
+          <div className="pb-4 pr-2 block pr-2 w-full overflow-hidden focus:outline-none">
+            <a href="#" className="text-xl text-[#026DD2] font-afacad flex">
+              https://www.docker.com
+              <span className="ml-2 text-[#2F465C] font-afacad text-lg">
+                <svg
+                  className="w-6 h-6 relative top-[2px]"
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 700 700"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                  xmlSpace="preserve"
+                  style={{
+                    fillRule: "evenodd",
+                    clipRule: "evenodd",
+                    strokeLinejoin: "round",
+                    strokeMiterlimit: 2,
+                  }}
+                >
+                  <g transform="matrix(8.47084,0,0,8.47084,-2902.99,-27960.8)">
+                    <path d="M383.344,3317.73L365.295,3317.73C358.798,3317.73 353.523,3323 353.523,3329.5C353.523,3329.5 353.523,3363.03 353.523,3363.03C353.523,3369.52 358.798,3374.8 365.295,3374.8C365.295,3374.8 401.632,3374.8 401.632,3374.8C408.129,3374.8 413.404,3369.52 413.404,3363.03L413.404,3346.3L410.404,3346.3L410.404,3363.03C410.404,3367.87 406.473,3371.8 401.632,3371.8L365.295,3371.8C360.453,3371.8 356.523,3367.87 356.523,3363.03L356.523,3329.5C356.523,3324.66 360.453,3320.73 365.295,3320.73L383.344,3320.73L383.344,3317.73Z" />
+                  </g>
+                  <g transform="matrix(5.98979,5.98979,-5.98979,5.98979,18438.4,-21615.9)">
+                    <path d="M320.117,3351.4L320.118,3351.41L325.978,3364.89C326.206,3365.46 326.754,3365.83 327.364,3365.83C327.975,3365.83 328.525,3365.47 328.757,3364.9L333.331,3351.31C333.384,3351.18 333.417,3351.05 333.433,3350.92C333.549,3350.6 333.613,3350.25 333.613,3349.89L332.906,3312.69C332.906,3308.85 329.791,3305.74 325.955,3305.74C322.118,3305.74 319.003,3308.85 319.003,3312.69C319.003,3312.69 319.71,3349.89 319.71,3349.89C319.71,3350.44 319.859,3350.96 320.117,3351.4ZM329.44,3352.89L323.953,3352.89L327.381,3360.35L329.44,3352.89ZM322.71,3349.89L330.613,3349.89L329.906,3312.69C329.906,3310.51 328.135,3308.74 325.955,3308.74C323.774,3308.74 322.003,3310.51 322.003,3312.69L322.71,3349.89Z" />
+                  </g>
+                </svg>
+              </span>
+            </a>
+          </div>
+          <textarea
+            rows={1}
+            ref={descriptionRef}
+            placeholder="Description"
+            style={{ resize: "none" }}
+            className="block text-[#2F465C] text-lg pr-2 w-full overflow-hidden focus:outline-none"
+            value={description}
+            onChange={(event) => {
+              updateDescription(event.target.value);
+            }}
+          />
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      </div >
+    </main >
   );
 }

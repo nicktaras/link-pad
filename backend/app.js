@@ -16,7 +16,7 @@ const {
   deleteTopic,
   deleteCategory,
   deleteLink
-} = "./crud";
+} = require('./crud');
 
 // Create
 fastify.post('/profile', async (request, reply) => {
@@ -41,6 +41,11 @@ fastify.post('/link', async (request, reply) => {
   const { title, subtitle, url, iconAsciiCode, description, categoryId } = request.body;
   const linkId = createLink(title, subtitle, url, iconAsciiCode, description, categoryId);
   reply.send({ linkId });
+});
+
+// Health Check
+fastify.get('/', async (request, reply) => {
+  reply.send('health ok');
 });
 
 // Read
@@ -119,7 +124,4 @@ fastify.delete('/link/:id', async (request, reply) => {
 });
 
 // Start the server
-fastify.listen(3000, (err, address) => {
-  if (err) throw err;
-  console.log(`Server is listening on ${address}`);
-});
+fastify.listen({ port: 8000 }, console.log(`Server is listening on 8000`))

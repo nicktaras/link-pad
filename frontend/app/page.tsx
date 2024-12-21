@@ -66,7 +66,7 @@ export default function Home() {
     },
   ];
 
-  const handleSwitchChange = (checked:boolean) => {
+  const handleSwitchChange = (checked: boolean) => {
     setIsYearly(checked);
   };
 
@@ -88,9 +88,8 @@ export default function Home() {
         <div className="w-full flex justify-center mt-16 mb-12 relative left-[26px]">
           <div className="flex items-center space-x-4">
             <span
-              className={`text-sm text-[#485D6F] transition-opacity ${
-                isYearly ? "opacity-50" : "opacity-100"
-              }`}
+              className={`text-sm text-[#485D6F] transition-opacity ${isYearly ? "opacity-50" : "opacity-100"
+                }`}
             >
               Monthly
             </span>
@@ -101,9 +100,8 @@ export default function Home() {
               aria-readonly={false}
             />
             <span
-              className={`text-sm text-[#485D6F] transition-opacity ${
-                isYearly ? "opacity-100" : "opacity-50"
-              }`}
+              className={`text-sm text-[#485D6F] transition-opacity ${isYearly ? "opacity-100" : "opacity-50"
+                }`}
             >
               Yearly <Badge variant="outline" className="bg-[#00C7A6] text-white">30% OFF</Badge></span>
           </div>

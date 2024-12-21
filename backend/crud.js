@@ -2,12 +2,15 @@ const Database = require('better-sqlite3');
 const db = new Database('./db.db');
 
 // Create
-function createProfile(username, email, planId, teamId) {
-  const planIdValue = planId !== undefined ? planId : 0;
-  const teamIdValue = teamId !== undefined ? teamId : null;
-  const stmt = db.prepare('INSERT INTO Profile (username, email, plan_id, team_id) VALUES (?, ?, ?, ?)');
-  const result = stmt.run(username, email, planIdValue, teamIdValue);
+function createProfile(username, email) {
+  const stmt = db.prepare('INSERT INTO Profile (username, email) VALUES (?, ?)');
+  const result = stmt.run(username, email);
   return result.lastInsertRowid;
+}
+
+function addProfileToPlan(profileId, planId) {
+  const stmt = db.prepare('INSERT INTO ProfilePlan (profile_id, plan_id) VALUES (?, ?)');
+  stmt.run(profileId, planId);
 }
 
 function createTopic(title, iconAsciiCode, profileId, teamId) {
@@ -47,6 +50,11 @@ function getAllCategories() {
 
 function getAllLinks() {
   return db.prepare('SELECT * FROM Link').all();
+}
+
+function getPlansForProfile(profileId) {
+  const stmt = db.prepare('SELECT Plan.* FROM Plan JOIN ProfilePlan ON Plan.plan_id = ProfilePlan.plan_id WHERE ProfilePlan.profile_id = ?');
+  return stmt.all(profileId);
 }
 
 // Update
@@ -116,16 +124,14 @@ function getTeamsForProfile(profileId) {
   return stmt.all(profileId);
 }
 
-// Function to update a profile's information - TODO correct this, it's not based on team.
-function updateTeamProfile(profileId, newUsername, newEmail) {
-  // const stmt = db.prepare('UPDATE Profile SET username = ?, email = ? WHERE profile_id = ?');
-  // stmt.run(newUsername, newEmail, profileId);
+function updateTeamProfile(profileId, teamId, newUsername, newEmail) {
+  const stmt = db.prepare('UPDATE Profile SET username = ?, email = ? WHERE profile_id = ? AND team_id = ?');
+  stmt.run(newUsername, newEmail, profileId, teamId);
 }
 
-// Function to delete a profile - TODO correct this, it's not based on team.
-function deleteTeamProfile(profileId) {
-  // const stmt = db.prepare('DELETE FROM Team WHERE profile_id = ?');
-  // stmt.run(profileId);
+function deleteTeamProfile(profileId, teamId) {
+  const stmt = db.prepare('DELETE FROM Profile WHERE profile_id = ? AND team_id = ?');
+  stmt.run(profileId, teamId);
 }
 
 // Function to retrieve categories associated with a team
@@ -164,5 +170,7 @@ module.exports = {
   deleteTeamProfile,
   createTeam,
   getCategoriesForTeam,
-  getLinksForTeam
+  getLinksForTeam,
+  addProfileToPlan,
+  getPlansForProfile
 }
